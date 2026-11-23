@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* Palet dan tipografi NADA (PRD bagian 7).
+   Catatan kontras: Stone (#8C8C82) hanya ±3:1 di atas Ivory, sehingga dipakai untuk garis dan placeholder saja.
+   Teks sekunder memakai Muted (#5E5E55) yang lolos WCAG AA (≥4,5:1) di atas Ivory maupun Sand. */
+@theme {
+  --color-ivory: #f6f3ec;
+  --color-sand: #e6dfd1;
+  --color-sage: #b7c4b2;
+  --color-deep: #5f705f;
+  --color-deep-dark: #4d5c4d;
+  --color-ink: #23231b;
+  --color-stone: #8c8c82;
+  --color-muted: #5e5e55;
+  --color-clay: #b88e78;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-deep);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-sage);
+}
+
+@utility wrap {
+  @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+}
+@utility caps {
+  @apply text-[11px] font-medium uppercase tracking-[0.18em];
+}
+@utility btn {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-6 py-2.5 text-sm font-medium transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-deep text-white hover:bg-deep-dark;
+}
+@utility btn-outline {
+  @apply btn border border-deep text-deep hover:bg-deep hover:text-white;
+}
+@utility btn-quiet {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-muted transition-colors duration-200 hover:bg-sand disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility input {
+  @apply w-full rounded-md border border-stone/60 bg-white/70 px-3.5 py-2.5 text-[15px] text-ink placeholder:text-stone transition-colors duration-200 focus:border-deep focus:bg-white focus:outline-none focus:ring-1 focus:ring-deep;
+}
+@utility field-label {
+  @apply mb-1.5 block text-sm font-medium text-ink;
+}
+@utility card {
+  @apply rounded-lg border border-sand bg-white/60;
+}
+@utility badge {
+  @apply inline-block rounded-sm bg-clay px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-ink;
+}
+@utility tag {
+  @apply inline-block rounded-full bg-sand px-2.5 py-0.5 text-xs font-medium text-ink;
+}
+@utility link {
+  @apply text-deep underline decoration-sage underline-offset-4 transition-colors hover:decoration-deep;
+}
+
+/* Pergantian foto lembut (200–300 ms) */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in {
+  animation: fade-in 260ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Isi artikel Kisah */
+.prose-nada {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--color-ink);
+}
+.prose-nada > * + * { margin-top: 1.1em; }
+.prose-nada h2 { font-size: 1.75rem; line-height: 1.2; margin-top: 1.9em; }
+.prose-nada h3 { font-size: 1.4rem; line-height: 1.25; margin-top: 1.6em; }
+.prose-nada a { color: var(--color-deep); text-decoration: underline; text-underline-offset: 3px; }
+.prose-nada ul { list-style: disc; padding-left: 1.4em; }
+.prose-nada ol { list-style: decimal; padding-left: 1.4em; }
+.prose-nada li + li { margin-top: .35em; }
+.prose-nada blockquote {
+  border-left: 2px solid var(--color-sage);
+  padding-left: 1.1em;
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  line-height: 1.45;
+  color: var(--color-deep);
+}
+.prose-nada img { width: 100%; height: auto; border-radius: 6px; }
+.prose-nada hr { border-color: var(--color-sand); }
+
+/* Editor teks admin */
+.editor:empty::before {
+  content: attr(data-placeholder);
+  color: var(--color-stone);
+}
